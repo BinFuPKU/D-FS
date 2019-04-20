@@ -5,12 +5,12 @@ Discretization and feature selection are two basic preprocessing stages of data 
 
 
 
-@inproceedings{DBLP:conf/ispan/FuLJWH17,
-  author    = {Bin Fu and
-               Hongzhi Liu and
-               Zhengshen Jiang and
-               Zhonghai Wu and
-               D. Frank Hsu},
+@inproceedings{DBLP:conf/ispan/FuLJWH17,\n
+  author    = {Bin Fu and \n
+               Hongzhi Liu and \n
+               Zhengshen Jiang and \n
+               Zhonghai Wu and \n
+               D. Frank Hsu}, \n
   title     = {{D-FS:} {A} Novel Integration Method of Discretization and Feature
                Selection},
   booktitle = {14th International Symposium on Pervasive Systems, Algorithms and
