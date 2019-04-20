@@ -13,12 +13,11 @@ import tools.Discretize;
 import tools.IO;
 import tools.IOUtil;
 import tools.MeasureUtil;
-import tools.MeasureUtil2;
 import tools.PreProcessUtil;
 import tools.StatisticsUtil;
 import weka.core.Instances;
 
-public class DDFS_main_MIlog {
+public class DDFS_main_MIlog2 {
 
 	private static double alpha;
 	
@@ -42,6 +41,12 @@ public class DDFS_main_MIlog {
 		Map<Integer,ArrayList<Double>> cutpoints=PreProcessUtil.getCutPoints(train);
 		Map<Integer,ArrayList<Double>> choose= new HashMap<Integer,ArrayList<Double>>();
 		
+		double ceilMI = 0;
+		{
+			String [] targets_temp=Discretize.dis_label(train, targets, cutpoints);
+			ceilMI = MeasureUtil.muInfor_log(targets_temp, labels);
+			System.out.println(ceilMI);
+		}
 
 		// all
 		// #1#time #1#feature  #1#intervals  #6#ACC  #6#AUC  #6#FMeasure #6#Time 
@@ -75,8 +80,10 @@ public class DDFS_main_MIlog {
 				}// for a
 				
 				// check whether exit
-				if ((mi_pre!=0 && (mi_max - mi_pre)/mi_pre<=alpha) || (col_max==-1 || Double.isNaN(cp_max)))
+				if ((mi_pre!=0 && (mi_max - mi_pre)/mi_pre<=alpha) || (col_max==-1 || Double.isNaN(cp_max))){
+					System.out.println(mi_pre);
 					break;
+				}
 				
 				// add and remove
 				{
@@ -138,21 +145,13 @@ public class DDFS_main_MIlog {
 					rss[3+(k2*6)+k1] = rs[k1][k2];
 		}
 		
-		// print
-		{
-			System.out.println();
-			System.out.print("\t\t");
-			for(double val: rss)
-				System.out.print(val+"\t");
-			System.out.println();
-		}
-		
 		return  rss;
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		final String IN_DIR="D:/Study/DDFS/数据/arff/keel-14_dis/orig-14";
+
+		final String IN_DIR="D:/Study/DDFS/数据/arff/orig-uci-14";
 		final int FOLD = 10;
 		alpha = 0;
 		final String head="#dataset\t#Discretize_Time\t#Feature\t#Cut-points"
@@ -161,21 +160,20 @@ public class DDFS_main_MIlog {
 				+ "\t#IBK-FMeasure\t#NB-FMeasure\t#J48-FMeasure\t#LogReg-FMeasure\t#SMO-FMeasure\t#MLP-FMeasure"
 				+ "\t#IBK-Time\t#NB-Time\t#J48-Time\t#LogReg-Time\t#SMO-Time\t#MLP-Time";
 
-		final String pre_path = IN_DIR+"/ddfs-pre(log-"+alpha+")__.txt";
-		final String sstd_path = IN_DIR+"/ddfs-sstd(log-"+alpha+")__.txt";
+		final String pre_path = IN_DIR+"/ddfs-pre(log-"+alpha+").txt";
+		final String sstd_path = IN_DIR+"/ddfs-sstd(log-"+alpha+").txt";
 		
 		IO.append(pre_path, head+"\r\n");
 		IO.append(sstd_path, head+"\r\n");
 		
-		boolean flag = true;
 		for (File subdir:new File(IN_DIR).listFiles()){
 			if(subdir.isFile())
 				continue;
 			System.out.println("\n"+subdir.getName());
 			
-//			if(!subdir.getName().equalsIgnoreCase("magic")){
-//				continue;
-//			}
+			if(!subdir.getName().equalsIgnoreCase("magic04")){
+				continue;
+			}
 			
 			double [][] rss_stat = new double[FOLD][3+6*4];
 			for (int i=1;i<=FOLD;i++){

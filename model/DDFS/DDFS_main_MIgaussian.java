@@ -13,12 +13,11 @@ import tools.Discretize;
 import tools.IO;
 import tools.IOUtil;
 import tools.MeasureUtil;
-import tools.MeasureUtil2;
 import tools.PreProcessUtil;
 import tools.StatisticsUtil;
 import weka.core.Instances;
 
-public class DDFS_main_MIlog {
+public class DDFS_main_MIgaussian {
 
 	private static double alpha;
 	
@@ -63,7 +62,7 @@ public class DDFS_main_MIlog {
 					for(double val:vals){
 						String [] targets_temp=Discretize.dis_label(train, targets, a, val);
 						
-						double mi_temp=MeasureUtil.muInfor_log(targets_temp, labels);
+						double mi_temp=MeasureUtil.muInfor_gaussian(targets_temp, labels);
 						
 						if (mi_max < mi_temp){
 							mi_max = mi_temp;
@@ -138,20 +137,12 @@ public class DDFS_main_MIlog {
 					rss[3+(k2*6)+k1] = rs[k1][k2];
 		}
 		
-		// print
-		{
-			System.out.println();
-			System.out.print("\t\t");
-			for(double val: rss)
-				System.out.print(val+"\t");
-			System.out.println();
-		}
-		
 		return  rss;
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+
 		final String IN_DIR="D:/Study/DDFS/数据/arff/keel-14_dis/orig-14";
 		final int FOLD = 10;
 		alpha = 0;
@@ -161,21 +152,24 @@ public class DDFS_main_MIlog {
 				+ "\t#IBK-FMeasure\t#NB-FMeasure\t#J48-FMeasure\t#LogReg-FMeasure\t#SMO-FMeasure\t#MLP-FMeasure"
 				+ "\t#IBK-Time\t#NB-Time\t#J48-Time\t#LogReg-Time\t#SMO-Time\t#MLP-Time";
 
-		final String pre_path = IN_DIR+"/ddfs-pre(log-"+alpha+")__.txt";
-		final String sstd_path = IN_DIR+"/ddfs-sstd(log-"+alpha+")__.txt";
+		final String pre_path = IN_DIR+"/ddfs-pre(gaussian-"+alpha+").txt";
+		final String sstd_path = IN_DIR+"/ddfs-sstd(gaussian-"+alpha+").txt";
 		
 		IO.append(pre_path, head+"\r\n");
 		IO.append(sstd_path, head+"\r\n");
 		
-		boolean flag = true;
+//		boolean flag = true;
 		for (File subdir:new File(IN_DIR).listFiles()){
 			if(subdir.isFile())
 				continue;
 			System.out.println("\n"+subdir.getName());
 			
-//			if(!subdir.getName().equalsIgnoreCase("magic")){
+//			if(subdir.getName().equalsIgnoreCase("magic04")){
+//				flag = false;
 //				continue;
 //			}
+//			if(flag)
+//				continue;
 			
 			double [][] rss_stat = new double[FOLD][3+6*4];
 			for (int i=1;i<=FOLD;i++){
