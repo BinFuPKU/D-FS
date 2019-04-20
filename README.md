@@ -14,7 +14,8 @@ Discretization and feature selection are two basic preprocessing stages of data 
 libs can be downloaded freely from internet.
 The source code is a demo used for academic exchange!
 
-Bibtex:```
+Bibtex:
+```
 @proceedings{DBLP:conf/ispan/2017,
   title     = {14th International Symposium on Pervasive Systems, Algorithms and
                Networks {\&} 11th International Conference on Frontier of Computer
