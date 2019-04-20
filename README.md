@@ -19,18 +19,26 @@ The source code is a demo used for academic exchange!
 
 Bibtex:
 ```
-@proceedings{DBLP:conf/ispan/2017,
-  title     = {14th International Symposium on Pervasive Systems, Algorithms and
+@inproceedings{DBLP:conf/ispan/FuLJWH17,
+  author    = {Bin Fu and
+               Hongzhi Liu and
+               Zhengshen Jiang and
+               Zhonghai Wu and
+               D. Frank Hsu},
+  title     = {{D-FS:} {A} Novel Integration Method of Discretization and Feature
+               Selection},
+  booktitle = {14th International Symposium on Pervasive Systems, Algorithms and
                Networks {\&} 11th International Conference on Frontier of Computer
                Science and Technology {\&} Third International Symposium of Creative
                Computing, {ISPAN-FCST-ISCC} 2017, Exeter, United Kingdom, June 21-23,
                2017},
-  publisher = {{IEEE} Computer Society},
+  pages     = {6--13},
   year      = {2017},
-  url       = {http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=8119480},
-  isbn      = {978-1-5386-0840-1},
-  timestamp = {Wed, 06 Dec 2017 17:02:23 +0100},
-  biburl    = {https://dblp.org/rec/bib/conf/ispan/2017},
+  crossref  = {DBLP:conf/ispan/2017},
+  url       = {https://doi.org/10.1109/ISPAN-FCST-ISCC.2017.64},
+  doi       = {10.1109/ISPAN-FCST-ISCC.2017.64},
+  timestamp = {Mon, 11 Dec 2017 14:05:41 +0100},
+  biburl    = {https://dblp.org/rec/bib/conf/ispan/FuLJWH17},
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 ```
